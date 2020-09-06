@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BeerServiceImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mssc-beer-service</a> &gt; <a href="index.source.html" class="el_package">guru.springframework.msscbeerservice.services</a> &gt; <span class="el_source">BeerServiceImpl.java</span></div><h1>BeerServiceImpl.java</h1><pre class="source lang-java linenums">package guru.springframework.msscbeerservice.services;
+
+import guru.springframework.msscbeerservice.domain.Beer;
+import guru.springframework.msscbeerservice.repositories.BeerRepository;
+import guru.springframework.msscbeerservice.web.controller.NotFoundException;
+import guru.springframework.msscbeerservice.web.mappers.BeerMapper;
+import guru.springframework.msscbeerservice.web.model.BeerDto;
+import guru.springframework.msscbeerservice.web.model.BeerPagedList;
+import guru.springframework.msscbeerservice.web.model.BeerStyleEnum;
+import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+
+import java.util.UUID;
+import java.util.stream.Collectors;
+
+/**
+ * Created by jt on 2019-06-06.
+ */
+<span class="fc" id="L23">@RequiredArgsConstructor</span>
+@Service
+public class BeerServiceImpl implements BeerService {
+    private final BeerRepository beerRepository;
+    private final BeerMapper beerMapper;
+
+    @Cacheable(cacheNames = &quot;beerListCache&quot;, condition = &quot;#showInventoryOnHand == false&quot;)
+    @Override
+    public BeerPagedList listBeers(String beerName, BeerStyleEnum beerStyle, PageRequest pageRequest, Boolean showInventoryOnHand) {
+
+        BeerPagedList beerPagedList;
+        Page&lt;Beer&gt; beerPage;
+
+<span class="nc bnc" id="L36" title="All 4 branches missed.">        if (!StringUtils.isEmpty(beerName) &amp;&amp; !StringUtils.isEmpty(beerStyle)) {</span>
+            //search both
+<span class="nc" id="L38">            beerPage = beerRepository.findAllByBeerNameAndBeerStyle(beerName, beerStyle, pageRequest);</span>
+<span class="nc bnc" id="L39" title="All 4 branches missed.">        } else if (!StringUtils.isEmpty(beerName) &amp;&amp; StringUtils.isEmpty(beerStyle)) {</span>
+            //search beer_service name
+<span class="nc" id="L41">            beerPage = beerRepository.findAllByBeerName(beerName, pageRequest);</span>
+<span class="nc bnc" id="L42" title="All 4 branches missed.">        } else if (StringUtils.isEmpty(beerName) &amp;&amp; !StringUtils.isEmpty(beerStyle)) {</span>
+            //search beer_service style
+<span class="nc" id="L44">            beerPage = beerRepository.findAllByBeerStyle(beerStyle, pageRequest);</span>
+        } else {
+<span class="nc" id="L46">            beerPage = beerRepository.findAll(pageRequest);</span>
+        }
+
+<span class="nc bnc" id="L49" title="All 2 branches missed.">        if (showInventoryOnHand){</span>
+<span class="nc" id="L50">            beerPagedList = new BeerPagedList(beerPage</span>
+<span class="nc" id="L51">                    .getContent()</span>
+<span class="nc" id="L52">                    .stream()</span>
+<span class="nc" id="L53">                    .map(beerMapper::beerToBeerDtoWithInventory)</span>
+<span class="nc" id="L54">                    .collect(Collectors.toList()),</span>
+                    PageRequest
+<span class="nc" id="L56">                            .of(beerPage.getPageable().getPageNumber(),</span>
+<span class="nc" id="L57">                                    beerPage.getPageable().getPageSize()),</span>
+<span class="nc" id="L58">                    beerPage.getTotalElements());</span>
+        } else {
+<span class="nc" id="L60">            beerPagedList = new BeerPagedList(beerPage</span>
+<span class="nc" id="L61">                    .getContent()</span>
+<span class="nc" id="L62">                    .stream()</span>
+<span class="nc" id="L63">                    .map(beerMapper::beerToBeerDto)</span>
+<span class="nc" id="L64">                    .collect(Collectors.toList()),</span>
+                    PageRequest
+<span class="nc" id="L66">                            .of(beerPage.getPageable().getPageNumber(),</span>
+<span class="nc" id="L67">                                    beerPage.getPageable().getPageSize()),</span>
+<span class="nc" id="L68">                    beerPage.getTotalElements());</span>
+        }
+
+<span class="nc" id="L71">        return beerPagedList;</span>
+    }
+
+    @Cacheable(cacheNames = &quot;beerCache&quot;, key = &quot;#beerId&quot;, condition = &quot;#showInventoryOnHand == false&quot;)
+    @Override
+    public BeerDto getById(UUID beerId, Boolean showInventoryOnHand) {
+<span class="nc bnc" id="L77" title="All 2 branches missed.">        if (showInventoryOnHand) {</span>
+<span class="nc" id="L78">            return beerMapper.beerToBeerDtoWithInventory(</span>
+<span class="nc" id="L79">                    beerRepository.findById(beerId).orElseThrow(NotFoundException::new)</span>
+            );
+        } else {
+<span class="nc" id="L82">            return beerMapper.beerToBeerDto(</span>
+<span class="nc" id="L83">                    beerRepository.findById(beerId).orElseThrow(NotFoundException::new)</span>
+            );
+        }
+    }
+
+    @Override
+    public BeerDto saveNewBeer(BeerDto beerDto) {
+<span class="nc" id="L90">        return beerMapper.beerToBeerDto(beerRepository.save(beerMapper.beerDtoToBeer(beerDto)));</span>
+    }
+
+    @Override
+    public BeerDto updateBeer(UUID beerId, BeerDto beerDto) {
+<span class="nc" id="L95">        Beer beer = beerRepository.findById(beerId).orElseThrow(NotFoundException::new);</span>
+
+<span class="nc" id="L97">        beer.setBeerName(beerDto.getBeerName());</span>
+<span class="nc" id="L98">        beer.setBeerStyle(beerDto.getBeerStyle().name());</span>
+<span class="nc" id="L99">        beer.setPrice(beerDto.getPrice());</span>
+<span class="nc" id="L100">        beer.setUpc(beerDto.getUpc());</span>
+
+<span class="nc" id="L102">        return beerMapper.beerToBeerDto(beerRepository.save(beer));</span>
+    }
+
+    @Cacheable(cacheNames = &quot;beerUpcCache&quot;)
+    @Override
+    public BeerDto getByUpc(String upc) {
+<span class="nc" id="L108">        return beerMapper.beerToBeerDto(beerRepository.findByUpc(upc));</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>
