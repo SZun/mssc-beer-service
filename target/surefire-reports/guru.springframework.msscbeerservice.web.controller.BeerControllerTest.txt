@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: guru.springframework.msscbeerservice.web.controller.BeerControllerTest
 -------------------------------------------------------------------------------
-Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 4.632 s - in guru.springframework.msscbeerservice.web.controller.BeerControllerTest
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 5.453 s - in guru.springframework.msscbeerservice.web.controller.BeerControllerTest
