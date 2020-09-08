@@ -1,12 +1,15 @@
 /Users/samg.zun/Documents/References/Udemy/mssc-brewery-ws/mssc-beer-service/src/main/java/guru/sfg/brewery/model/BeerDto.java
 /Users/samg.zun/Documents/References/Udemy/mssc-brewery-ws/mssc-beer-service/src/main/java/guru/springframework/msscbeerservice/config/TaskConfig.java
 /Users/samg.zun/Documents/References/Udemy/mssc-brewery-ws/mssc-beer-service/src/main/java/guru/springframework/msscbeerservice/web/mappers/BeerMapperDecorator.java
+/Users/samg.zun/Documents/References/Udemy/mssc-brewery-ws/mssc-beer-service/src/main/java/guru/springframework/msscbeerservice/services/order/BeerOrderValidator.java
 /Users/samg.zun/Documents/References/Udemy/mssc-brewery-ws/mssc-beer-service/src/main/java/guru/springframework/msscbeerservice/config/JmsConfig.java
 /Users/samg.zun/Documents/References/Udemy/mssc-brewery-ws/mssc-beer-service/src/main/java/guru/springframework/msscbeerservice/web/controller/NotFoundException.java
 /Users/samg.zun/Documents/References/Udemy/mssc-brewery-ws/mssc-beer-service/src/main/java/guru/springframework/msscbeerservice/web/mappers/DateMapper.java
+/Users/samg.zun/Documents/References/Udemy/mssc-brewery-ws/mssc-beer-service/src/main/java/guru/sfg/brewery/model/events/ValidateOrderResult.java
 /Users/samg.zun/Documents/References/Udemy/mssc-brewery-ws/mssc-beer-service/src/main/java/guru/springframework/msscbeerservice/config/CacheConfig.java
 /Users/samg.zun/Documents/References/Udemy/mssc-brewery-ws/mssc-beer-service/src/main/java/guru/springframework/msscbeerservice/repositories/BeerRepository.java
 /Users/samg.zun/Documents/References/Udemy/mssc-brewery-ws/mssc-beer-service/src/main/java/guru/sfg/brewery/model/BeerStyleEnum.java
+/Users/samg.zun/Documents/References/Udemy/mssc-brewery-ws/mssc-beer-service/src/main/java/guru/sfg/brewery/model/events/BeerOrderDto.java
 /Users/samg.zun/Documents/References/Udemy/mssc-brewery-ws/mssc-beer-service/src/main/java/guru/springframework/msscbeerservice/bootstrap/BeerLoader.java
 /Users/samg.zun/Documents/References/Udemy/mssc-brewery-ws/mssc-beer-service/src/main/java/guru/sfg/brewery/model/events/BeerEvent.java
 /Users/samg.zun/Documents/References/Udemy/mssc-brewery-ws/mssc-beer-service/src/main/java/guru/springframework/msscbeerservice/services/brewing/BrewBeerListener.java
@@ -16,8 +19,11 @@
 /Users/samg.zun/Documents/References/Udemy/mssc-brewery-ws/mssc-beer-service/src/main/java/guru/sfg/brewery/model/events/NewInventoryEvent.java
 /Users/samg.zun/Documents/References/Udemy/mssc-brewery-ws/mssc-beer-service/src/main/java/guru/springframework/msscbeerservice/services/inventory/model/BeerInventoryDto.java
 /Users/samg.zun/Documents/References/Udemy/mssc-brewery-ws/mssc-beer-service/src/main/java/guru/springframework/msscbeerservice/domain/Beer.java
+/Users/samg.zun/Documents/References/Udemy/mssc-brewery-ws/mssc-beer-service/src/main/java/guru/springframework/msscbeerservice/services/order/BeerOrderValidationListener.java
 /Users/samg.zun/Documents/References/Udemy/mssc-brewery-ws/mssc-beer-service/src/main/java/guru/springframework/msscbeerservice/MsscBeerServiceApplication.java
+/Users/samg.zun/Documents/References/Udemy/mssc-brewery-ws/mssc-beer-service/src/main/java/guru/sfg/brewery/model/events/BeerOrderLineDto.java
 /Users/samg.zun/Documents/References/Udemy/mssc-brewery-ws/mssc-beer-service/src/main/java/guru/springframework/msscbeerservice/web/mappers/BeerMapper.java
+/Users/samg.zun/Documents/References/Udemy/mssc-brewery-ws/mssc-beer-service/src/main/java/guru/sfg/brewery/model/events/ValidateOrderRequest.java
 /Users/samg.zun/Documents/References/Udemy/mssc-brewery-ws/mssc-beer-service/src/main/java/guru/springframework/msscbeerservice/services/BeerService.java
 /Users/samg.zun/Documents/References/Udemy/mssc-brewery-ws/mssc-beer-service/src/main/java/guru/springframework/msscbeerservice/web/controller/MvcExceptionHandler.java
 /Users/samg.zun/Documents/References/Udemy/mssc-brewery-ws/mssc-beer-service/src/main/java/guru/springframework/msscbeerservice/web/controller/BeerController.java
